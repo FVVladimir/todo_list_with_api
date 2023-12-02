@@ -1,13 +1,16 @@
-
+import React from 'react';
+import LoadList from './LoadList';
 import './App.css';
 
 function App() {
-  const clickHandler = () => {
-    console.log('i am work')
-  }
+
+ 
   return (
-    <div className="App">
-      <button onClick = {clickHandler}>push me</button>
+    <div className="App">    
+      
+        <input type = "text"/>
+        <LoadList/>    
+       
     </div>
   );
 }
