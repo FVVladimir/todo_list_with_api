@@ -6,9 +6,8 @@ function App() {
 
  
   return (
-    <div className="App">    
-      
-        <input type = "text"/>
+    <div className="App">      
+        
         <LoadList/>    
        
     </div>
