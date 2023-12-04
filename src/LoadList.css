@@ -1,0 +1,15 @@
+li {
+    display: flex;
+    list-style-type: none;
+    justify-content: space-between;
+    height: 35px;
+    width: 700px;
+    border: solid blue;
+    margin: 5px;
+    padding: 3px;
+
+}
+
+.done {
+    text-decoration: line-through;
+}
