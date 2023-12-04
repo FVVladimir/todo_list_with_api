@@ -28,7 +28,7 @@ const LoadList = () => {
           return el.id !== Number(e.target.parentNode.id)
       })
        localStorage.setItem('data', JSON.stringify(newList))
-       console.log(newList);
+      //  console.log(newList);
        clickHandler();
    };
    
@@ -47,7 +47,7 @@ const LoadList = () => {
        localStorage.setItem('data', JSON.stringify(newList))
    
        clickHandler();
-         console.log(newList);     
+         // console.log(newList);     
    }
         
 return (
