@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from "react";
+import Pagination from './Pagination';
 import './LoadList.css';
 
 const LoadList = () => {
 
-    const [list, setList] = useState([]);    
+    const [list, setList] = useState([]);
+    const [curentIndex, setCurentIndex] = useState(1);
+    const [itemsPerPage] = useState(10); 
 
    useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/todos')
@@ -11,9 +14,14 @@ const LoadList = () => {
       .then(data => localStorage.setItem('data', JSON.stringify(data)))
        }, []);   
     
-   //  console.log(ls_list, typeof ls_list);
 
-   const getListFromLS = () => {        
+   const lastItemIndex = curentIndex * itemsPerPage;
+   const firstItemIndex = lastItemIndex - itemsPerPage;
+   const curentItem = list.slice(firstItemIndex, lastItemIndex);
+
+   const paginate = itemNumber => setCurentIndex(itemNumber);
+   
+const getListFromLS = () => {        
       return JSON.parse(localStorage.getItem('data'));
    };
     
@@ -22,13 +30,13 @@ const LoadList = () => {
    }
 
    const removeItem = (e) => {
-      console.log('i am work',e.target.parentNode.id);
+      
       let newList = getListFromLS().filter((el) => {
          console.log(el.id,+e.target.parentNode.id )
           return el.id !== Number(e.target.parentNode.id)
-      })
+      });
        localStorage.setItem('data', JSON.stringify(newList))
-      //  console.log(newList);
+    
        clickHandler();
    };
    
@@ -46,22 +54,28 @@ const LoadList = () => {
       })
        localStorage.setItem('data', JSON.stringify(newList))
    
-       clickHandler();
-         // console.log(newList);     
+       clickHandler();       
    }
         
 return (
 
  <div className="wrapper">
+    
     <button onClick = {clickHandler}>Get List</button>
     <ul>      
-       {list.map((el) => <li key = {el.id} id={el.id} className={`${el.completed ? "done" : "" }`}> 
+       {curentItem.map((el) => <li key = {el.id} id={el.id} className={`${el.completed ? "done" : "" }`}> 
                            <input type="checkbox" className="checkbox" onChange={handleChange}></input>
                              {el.title}
                            <button onClick={removeItem}>Delete item</button>
                         </li>
                )}       
-    </ul> 
+    </ul>
+     
+     <Pagination
+       itemsPerPage = {itemsPerPage}
+       totalItems= {list.length}
+       paginate = {paginate}
+     />
 </div> 
  )
 }
